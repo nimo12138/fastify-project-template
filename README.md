@@ -96,3 +96,4 @@
 - Q群：595788494
 - 加群验证信息：`fastify-template`
 - 更多fastify相关知识，请移步[fastify.dev](https://fastify.dev/docs/latest/Guides/Getting-Started/)
+- 想使用ts编写fastify项目，请移步[fastify-template-ts](https://git.seepine.com/seepine/fastify-template-ts)
