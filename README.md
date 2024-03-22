@@ -93,5 +93,6 @@
 4. 然后在`Header`中添加`Authorization`字段，值为 `Bearer 生成的token` 就可以触发正常的token验证
 
 - 欢迎各位大佬萌新一起交流
-- 群号：595788494
+- Q群：595788494
 - 加群验证信息：`fastify-template`
+- 更多fastify相关知识，请移步[fastify.dev](https://fastify.dev/docs/latest/Guides/Getting-Started/)
