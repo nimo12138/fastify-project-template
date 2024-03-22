@@ -1,0 +1,23 @@
+{
+  "name": "fastify-project-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fastify/autoload": "^5.8.0",
+    "@fastify/env": "^4.3.0",
+    "@fastify/jwt": "^8.0.0",
+    "@joggr/fastify-prisma": "^1.2.3",
+    "@prisma/client": "^5.11.0",
+    "fastify": "^4.26.2",
+    "pino-pretty": "^11.0.0"
+  }
+}
