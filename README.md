@@ -88,8 +88,8 @@
     ```js
     npm run dev
     ```
-2. 访问 `http://localhost:3000/client/pub/test/typeorm` 即可看到项目启动成功
-3. 为了看到token验证结果，可以先访问`pub/test/typeorm`，就会执行数据库查询(需要数据库中有数据)和token的生成
+2. 访问 `http://localhost:3000/client/pub/test/find` 即可看到项目启动成功
+3. 为了看到token验证结果，可以先访问`pub/test/find`，就会执行数据库查询(需要数据库中有数据)和token的生成
 4. 然后在`Header`中添加`Authorization`字段，值为 `Bearer 生成的token`，访问`auth/test/typeorm`，就可以触发正常的token验证
 
 - 欢迎各位大佬萌新一起交流
