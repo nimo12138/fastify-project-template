@@ -33,4 +33,10 @@ export default fp(async function (fastify, opts) {
     //将app-config.json全局配置挂载
     fastify.decorate('config', config);
 
+    //控制服务启停等状态，因作用范围原因，需要设置为对象才能使修改生效
+    fastify.decorate('app', {
+        status: true,
+        statusMsg: ''
+    });
+
 });

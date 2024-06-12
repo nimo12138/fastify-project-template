@@ -26,26 +26,33 @@ export default async function (fastify, opts) {
     });
 
     fastify.get('/test', async function (request, reply) {
-        function findSumIndices(arr, target) {
-            const result = [];
-            // 遍历数组，查找和等于目标值的元素对
-            for (let i = 0; i < arr.length; i++) {
-                const element = arr[i];
+        function findSumIndicesInArray(arr, target) {
+            let filteredObject = {};
+            let result = [];
+            // 过滤数组，创建一个对象，键是元素值，值是元素下标
+            arr.forEach((element, index) => {
                 if (element <= target) {
-                    const complement = target - element;
-                    // 检查补数是否存在于数组中，并且不是当前元素本身
-                    if (arr.includes(complement) && arr.indexOf(complement) !== i) {
-                        // 找到了一对和等于目标值的元素，添加它们的下标到结果数组
-                        result.push(i, arr.indexOf(complement));
-                        return result; // 如果只需要找到第一对，在这里返回结果
+                    filteredObject[element] = index;
+                }
+            });
+            // 获取对象的键数组
+            let keys = Object.keys(filteredObject);
+            // 遍历键数组，寻找和等于目标值的键对
+            for (let i = 0; i < keys.length; i++) {
+                for (let j = i + 1; j < keys.length; j++) {
+                    if (parseInt(keys[i]) + parseInt(keys[j]) === target) {
+                        // 如果找到和等于目标值的两个键，将它们对应的值（元素下标）添加到结果数组
+                        result.push(filteredObject[keys[i]]);
+                        result.push(filteredObject[keys[j]]);
+                        return result;
                     }
                 }
             }
         }
         // 示例使用
-        const array = [3, 2, 4];
+        const array = [3,2,4];
         const number = 6;
-        const indices = findSumIndices(array, number);
+        const indices = findSumIndicesInArray(array, number);
         request.log.info(indices); // 输出：[0, 2]，因为array[0] + array[2] = 60  
         reply.send(indices);
     });

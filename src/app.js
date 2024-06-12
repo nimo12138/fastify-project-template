@@ -22,7 +22,7 @@ const fastify = await Fastify({
 });
 
 //注册优先挂载到fastify全局的node变量，和全局配置文件，为了让后续所有注册的全局插件可以使用全局变量和配置，需要优先注册
-await fastify.register(import('./plugins/core/node-var.js'));
+await fastify.register(import('./plugins/core/app-var.js'));
 
 //使用@fastify/autoload插件优化插件和路由注册，简化了繁琐的注册流程
 //注册全局可访问的插件
@@ -33,36 +33,19 @@ await fastify.register(autoLoad, {
     encapsulate: false //默认使用fp包装，打破封装性，令全局可访问，和node-var.js中使用fp效果相同
 });
 
+//注册中间件
+await fastify.register(autoLoad, {
+    dir: fastify.join(fastify.__dirname(import.meta.url), 'middlewares'),
+    forceESM: true,
+    encapsulate: false //默认使用fp包装，打破封装性，令全局可访问，和node-var.js中使用fp效果相同
+});
+
 //注册所有客户端路由文件
 await fastify.register(autoLoad, {
     dir: fastify.join(fastify.__dirname(import.meta.url), 'routes'),
     forceESM: true,
     options: {
         // prefix: '/api' //给每个路由设置统一前缀，更多配置详见@fastify/autoload
-    }
-});
-
-//添加请求前钩子，拦截请求用户验证等操作，详见fastify生命周期
-fastify.addHook('onRequest', async (request, reply) => {
-    // request.log.info(`${request.id}-请求钩子执行...`);
-    // request.log.info(`请求参数：${request}`);
-    //调用路由守卫进行拦截
-    const { accessGranted, statusCode, message } = await routeGuard(request);
-    if (!accessGranted) {
-        // 拦截请求并返回适当的响应
-        reply.code(statusCode).send({ errMsg: message });
-    }
-    //计算每个路由使用时间
-    request.startTime = new Date().getTime();
-});
-
-// 在请求结束时计算路由执行耗时并记录
-fastify.addHook('onResponse', async (request, reply) => {
-    request.log.info(reply.statusCode);
-    if (reply.statusCode == 200) {
-        const endTime = new Date().getTime();
-        const duration = endTime - request.startTime;
-        request.log.info(`${request.id}-请求路由执行结束，总耗时${duration}ms`);
     }
 });
 
