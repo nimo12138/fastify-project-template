@@ -26,8 +26,8 @@ export default fp(async function (fastify, opts) {
     });
 
     //封装读取配置文件路径方法
-    fastify.decorate('readConfigSync', function (configPath) {
-        return fs.readFileSync(path.join(process.cwd(), configPath));
+    fastify.decorate('readConfigSync', function (configPath, encoding = null) {
+        return fs.readFileSync(path.join(process.cwd(), configPath), encoding = encoding);
     });
 
     //将app-config.json全局配置挂载

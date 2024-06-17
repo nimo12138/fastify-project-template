@@ -2,7 +2,6 @@
 
 import Fastify from 'fastify';
 import autoLoad from '@fastify/autoload'
-import routeGuard from './middlewares/route-guard.js';
 
 //实例化fasitfy并设置参数，以下是格式化日志输出，通过pino-pretty美化日志
 const fastify = await Fastify({
@@ -36,6 +35,7 @@ await fastify.register(autoLoad, {
 //注册中间件
 await fastify.register(autoLoad, {
     dir: fastify.join(fastify.__dirname(import.meta.url), 'middlewares'),
+    ignorePattern: 'modules/*', //忽略中间件中的非插件模块，支持正则
     forceESM: true,
     encapsulate: false //默认使用fp包装，打破封装性，令全局可访问，和node-var.js中使用fp效果相同
 });
@@ -54,6 +54,8 @@ const server = async () => {
     try {
         //通过配置文件设置的端口号和监听地址
         await fastify.listen({ port: fastify.config.PORT, host: fastify.config.HOST });
+        //加载启动banner
+        fastify.log.info(fastify.readConfigSync(fastify.config.Banner, 'utf-8'));
         fastify.log.info(`服务已启动，正在监听地址：${JSON.stringify(fastify.addresses())}`);
     } catch (error) {
         fastify.log.error(error);

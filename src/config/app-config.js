@@ -1,6 +1,8 @@
 'use strict';
 
 export default {
+    //启动banner
+    Banner: "src/config/banner.txt",
     //应用监听端口号
     PORT: 3000,
     //应用监听地址

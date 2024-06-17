@@ -1,6 +1,6 @@
 'use strict';
 
-import { getStrategy } from '../utils/guard-strategies.js';
+import { getStrategy } from './modules/guard-strategies.js';
 
 export default async function (fastify, opt) {
 
@@ -10,6 +10,7 @@ export default async function (fastify, opt) {
         // request.log.info(`请求参数：${request}`);
         //获取请求链接
         const url = request.raw.url;
+        //设置拦截响应参数
         const guardMsg = {
             accessGranted: true,
             statusCode: 200,
