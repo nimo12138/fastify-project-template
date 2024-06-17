@@ -9,7 +9,7 @@ export default async function (fastify, opts) {
         request.log.info(`${request.id}-type测试路由执行...`);
         const startTime = new Date().getTime();
         // request.log.info(`${request.id}-开始执行查询...`);
-        const result = await fastify.orm.getRepository('Test').findOne({
+        const result = await fastify.orm.manager.findOne('Test', {
             where: {
                 email: '49516238@qq.com'
             } // 查询条件

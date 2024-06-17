@@ -12,6 +12,7 @@
 - 新增启动banner
 - middlewares新增modules文件夹，存放自定义中间件所用到的模块，移除utils中的guard-strategies.js
 - 调整全局方法readConfigSync，增加读取字符参数，默认Buffer，可指定为'utf-8'等
+- 将typeorm获取实例方法getRepository替换为manager方式，更简略
 
 - ---------------------------------------------------------------------------
 
